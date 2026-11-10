@@ -1,6 +1,6 @@
-# omnireach/plausible
+# omnipulse/plausible
 
-Plausible for [omnisense/omnireach](https://github.com/glitchr-omnisense/omnireach): visitors,
+Plausible for [omnisense/omnipulse](https://github.com/glitchr-omnisense/omnipulse): visitors,
 visits, pageviews, bounce rate and visit duration of a site, by page, entry page, source, country,
 device or day, combined as needed, through Plausible's Stats API v2
 (<https://plausible.io/docs/stats-api>) - plausible.io or a self-hosted Community Edition. Every
@@ -10,10 +10,10 @@ default. There is no sandbox. No PHP client of the Stats API v2 was found to reu
 ## Installation
 
 ```sh
-composer require omnireach/plausible symfony/http-client
+composer require omnipulse/plausible symfony/http-client
 ```
 
-Requires PHP 8.2, `omnisense/omnireach` (1.x) and `symfony/http-client-contracts` (3).
+Requires PHP 8.2, `omnisense/omnipulse` (1.x) and `symfony/http-client-contracts` (3).
 
 ## Credentials
 
@@ -42,7 +42,7 @@ Per query: `ReachQuery::$site` replaces `site` for one report.
 
 The family's names map to Plausible's:
 
-| Omnireach | Plausible |
+| Omnipulse | Plausible |
 |---|---|
 | `page` | `event:page` |
 | `entry_page` | `visit:entry_page` |
@@ -98,11 +98,11 @@ not know these rules, so such a query costs a call.
 
 require __DIR__.'/vendor/autoload.php';
 
-use Omnireach\Model\Dimension;
-use Omnireach\Model\Metric;
-use Omnireach\Model\ReachQuery;
-use Omnireach\Plausible\PlausibleFactory;
-use Omnireach\Registry;
+use Omnipulse\Model\Dimension;
+use Omnipulse\Model\Metric;
+use Omnipulse\Model\ReachQuery;
+use Omnipulse\Plausible\PlausibleFactory;
+use Omnipulse\Registry;
 use Symfony\Component\HttpClient\HttpClient;
 
 $registry = new Registry([new PlausibleFactory(HttpClient::create())], [
@@ -130,11 +130,11 @@ In Symfony:
 
 ```yaml
 services:
-    Omnireach\Plausible\PlausibleFactory:
+    Omnipulse\Plausible\PlausibleFactory:
         arguments: ['@http_client']
-    Omnireach\Registry:
+    Omnipulse\Registry:
         arguments:
-            $factories: ['@Omnireach\Plausible\PlausibleFactory']
+            $factories: ['@Omnipulse\Plausible\PlausibleFactory']
             $config:
                 stats: { factory: plausible, options: { api_key: '%env(PLAUSIBLE_API_KEY)%', site: 'example.org' } }
 ```

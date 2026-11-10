@@ -1,13 +1,16 @@
-# omnireach/plausible
+# omnipulse/plausible
 
-[omnisense/omnireach](https://github.com/glitchr-omnisense/omnireach)'s Plausible, under any PHP
+Formerly `omnireach/plausible` (renamed on 2026-11-10 with its family: `Omnireach\` is now `Omnipulse\`;
+this package replaces the former name).
+
+[omnisense/omnipulse](https://github.com/glitchr-omnisense/omnipulse)'s Plausible, under any PHP
 host: visitors, visits, pageviews, bounce rate and visit duration of a site, by page, entry page,
 source, country, device or day, combined as needed, through Plausible's Stats API v2 -
 plausible.io or a self-hosted Community Edition.
 
 ```php
-use Omnireach\Plausible\PlausibleFactory;
-use Omnireach\Registry;
+use Omnipulse\Plausible\PlausibleFactory;
+use Omnipulse\Registry;
 use Symfony\Component\HttpClient\HttpClient;
 
 $registry = new Registry([new PlausibleFactory(HttpClient::create())], [

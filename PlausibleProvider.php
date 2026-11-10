@@ -1,15 +1,15 @@
 <?php
 
-namespace Omnireach\Plausible;
+namespace Omnipulse\Plausible;
 
-use Omnireach\AudienceInterface;
-use Omnireach\Capabilities;
-use Omnireach\Http\JsonApi;
-use Omnireach\Model\Dimension;
-use Omnireach\Model\Metric;
-use Omnireach\Model\ReachQuery;
-use Omnireach\Model\Report;
-use Omnireach\Model\Row;
+use Omnipulse\AudienceInterface;
+use Omnipulse\Capabilities;
+use Omnipulse\Http\JsonApi;
+use Omnipulse\Model\Dimension;
+use Omnipulse\Model\Metric;
+use Omnipulse\Model\ReachQuery;
+use Omnipulse\Model\Report;
+use Omnipulse\Model\Row;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**

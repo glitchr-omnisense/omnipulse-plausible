@@ -1,11 +1,11 @@
 <?php
 
-namespace Omnireach\Plausible;
+namespace Omnipulse\Plausible;
 
-use Omnireach\Config;
-use Omnireach\Exception\InvalidConfigException;
-use Omnireach\ProviderFactory;
-use Omnireach\ProviderInterface;
+use Omnipulse\Config;
+use Omnipulse\Exception\InvalidConfigException;
+use Omnipulse\ProviderFactory;
+use Omnipulse\ProviderInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
@@ -24,9 +24,9 @@ final class PlausibleFactory extends ProviderFactory
     protected function populate(Config $c): void
     {
         $c->defaults([
-            'omnireach.factory_name' => 'plausible',
-            'omnireach.factory_title' => 'Plausible',
-            'omnireach.required_options' => ['api_key', 'site'],
+            'omnipulse.factory_name' => 'plausible',
+            'omnipulse.factory_title' => 'Plausible',
+            'omnipulse.required_options' => ['api_key', 'site'],
             'url' => 'https://plausible.io',
         ]);
     }

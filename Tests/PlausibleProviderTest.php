@@ -1,17 +1,17 @@
 <?php
 
-namespace Omnireach\Plausible\Tests;
+namespace Omnipulse\Plausible\Tests;
 
-use Omnireach\Exception\InvalidKeyException;
-use Omnireach\Exception\NotSupportedException;
-use Omnireach\Model\Dimension;
-use Omnireach\Model\Metric;
-use Omnireach\Model\ReachQuery;
-use Omnireach\Model\Row;
-use Omnireach\Plausible\PlausibleFactory;
-use Omnireach\Plausible\PlausibleProvider;
-use Omnireach\Registry;
-use Omnireach\Testing\RecordedHttpClient;
+use Omnipulse\Exception\InvalidKeyException;
+use Omnipulse\Exception\NotSupportedException;
+use Omnipulse\Model\Dimension;
+use Omnipulse\Model\Metric;
+use Omnipulse\Model\ReachQuery;
+use Omnipulse\Model\Row;
+use Omnipulse\Plausible\PlausibleFactory;
+use Omnipulse\Plausible\PlausibleProvider;
+use Omnipulse\Registry;
+use Omnipulse\Testing\RecordedHttpClient;
 use PHPUnit\Framework\TestCase;
 
 /**
