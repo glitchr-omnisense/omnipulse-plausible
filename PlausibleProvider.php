@@ -10,6 +10,9 @@ use Omnipulse\Model\Metric;
 use Omnipulse\Model\ReachQuery;
 use Omnipulse\Model\Report;
 use Omnipulse\Model\Row;
+use Omnisense\Contracts\Policy\Backoff;
+use Omnisense\Contracts\Policy\DeclaresUsagePolicyInterface;
+use Omnisense\Contracts\Policy\UsagePolicy;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
@@ -17,8 +20,13 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  * POST /api/v2/query with a bearer key - metrics, a date range, dimensions,
  * "is" filters, pages of results.
  */
-final class PlausibleProvider implements AudienceInterface
+final class PlausibleProvider implements AudienceInterface, DeclaresUsagePolicyInterface
 {
+    /** Plausible's usage policy, as its terms read on the day it says (provenance.verifiedAt). */
+    public const POLICY = __DIR__.'/policy.json';
+
+    private static ?UsagePolicy $policy = null;
+
     private const DIMENSIONS = ['page' => 'event:page', 'entry_page' => 'visit:entry_page', 'source' => 'visit:source', 'country' => 'visit:country', 'device' => 'visit:device', 'date' => 'time:day'];
 
     private const METRICS = ['visitors' => 'visitors', 'visits' => 'visits', 'pageviews' => 'pageviews', 'bounce_rate' => 'bounce_rate', 'visit_duration' => 'visit_duration'];
@@ -33,8 +41,9 @@ final class PlausibleProvider implements AudienceInterface
         #[\SensitiveParameter] private readonly string $apiKey,
         private readonly string $site,
         private readonly string $url = 'https://plausible.io',
+        ?Backoff $backoff = null,
     ) {
-        $this->api = new JsonApi($http, 'Plausible');
+        $this->api = new JsonApi($http, 'Plausible', $backoff);
     }
 
     public function getName(): string
@@ -47,6 +56,11 @@ final class PlausibleProvider implements AudienceInterface
         return 'Plausible';
     }
 
+    public function usagePolicy(): UsagePolicy
+    {
+        return self::$policy ??= UsagePolicy::fromFile(self::POLICY);
+    }
+
     public function capabilities(): Capabilities
     {
         return new Capabilities(
@@ -55,6 +69,7 @@ final class PlausibleProvider implements AudienceInterface
             metrics: [Metric::Visitors, Metric::Visits, Metric::Pageviews, Metric::BounceRate, Metric::VisitDuration],
             terms: ['https://plausible.io/docs/stats-api', 'https://plausible.io/terms'],
             limits: ['600 requests an hour per API key, by default'],
+            policy: $this->usagePolicy(),
         );
     }
 

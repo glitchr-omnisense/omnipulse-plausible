@@ -1,0 +1,45 @@
+{
+    "$schema": "https://github.com/glitchr-omnisense/contracts/blob/1.x/resources/usage-policy.schema.json",
+    "provider": "plausible",
+    "rateLimits": [
+        {
+            "max": 600,
+            "window": "hour",
+            "scope": "key",
+            "operations": [],
+            "note": "\"API keys have a rate limit of 600 requests per hour by default\"; higher limits on request. A report of more than 10,000 rows is several requests (one per page of results): the guard counts the call, Plausible's 429 the rest."
+        }
+    ],
+    "rights": {
+        "commercial": "unknown",
+        "openSourceRequired": null,
+        "caching": {
+            "permission": "unknown",
+            "maxTtl": null
+        },
+        "storage": "unknown",
+        "redistribution": "unknown",
+        "attribution": {
+            "required": false,
+            "text": null,
+            "url": null,
+            "where": []
+        },
+        "licence": null
+    },
+    "requirements": {
+        "key": true,
+        "userAgent": {
+            "required": false,
+            "pattern": null
+        }
+    },
+    "provenance": {
+        "terms": "https://plausible.io/terms",
+        "policy": "https://plausible.io/docs/stats-api",
+        "verifiedAt": "2026-11-10",
+        "declaredBy": "maintainer",
+        "contact": null,
+        "notes": "Read on 2026-11-10: 600 requests an hour per API key by default (more on request); the Stats API is a Business plan feature; a key reads only the sites of the team it was made for. A self-hosted Plausible sets its own limits (the figure is plausible.io's). The terms set nothing on caching or storage of the statistics, which are the site owner's own: unknown."
+    }
+}

@@ -33,6 +33,15 @@ message comes back in a `ProviderException`.
 **Terms** (<https://plausible.io/terms>): 600 requests an hour per API key by default. Reuse: no
 PHP client of the Stats API v2 was found to reuse.
 
+## Usage policy
+
+Plausible's usage policy is declared as data in [`policy.json`](policy.json) (omnisense/contracts'
+schema, named in `composer.json`'s `extra.omnisense.policy`), its terms read on
+2026-11-10 (https://plausible.io/docs/stats-api): 600 requests an hour per API key (plausible.io's default; more on request); rights unknown; an API key. omnipulse's registry enforces it - a call over a
+limit is never made, a 429 and its `Retry-After` hold every next call
+(`UsageLimitReachedException`) - and a site may tighten it, never loosen it
+(omnisense/omnipulse's docs/policies.md).
+
 ## Verified, and not
 
 - Verified (the core's harness, PHP 8.4): entry pages with a filter, a daily history by device,

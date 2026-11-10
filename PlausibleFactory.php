@@ -38,6 +38,7 @@ final class PlausibleFactory extends ProviderFactory
             (string) $c->string('api_key'),
             (string) $c->string('site'),
             rtrim($c->string('url') ?? 'https://plausible.io', '/'),
+            $c->backoff(),
         );
     }
 }

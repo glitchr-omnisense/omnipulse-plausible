@@ -174,3 +174,12 @@ unchecked: filter values are sent as given.
 
 An independent, unofficial client, affiliated with Plausible Analytics in no way. Whoever runs it
 complies with Plausible's terms (<https://plausible.io/terms>): see the README.
+
+## Usage policy
+
+Plausible's usage policy is declared as data in [`policy.json`](policy.json) (omnisense/contracts'
+schema, named in `composer.json`'s `extra.omnisense.policy`), its terms read on
+2026-11-10 (https://plausible.io/docs/stats-api): 600 requests an hour per API key (plausible.io's default; more on request); rights unknown; an API key. omnipulse's registry enforces it - a call over a
+limit is never made, a 429 and its `Retry-After` hold every next call
+(`UsageLimitReachedException`) - and a site may tighten it, never loosen it
+(omnisense/omnipulse's docs/policies.md).
