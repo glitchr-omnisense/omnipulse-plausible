@@ -8,6 +8,39 @@ host: visitors, visits, pageviews, bounce rate and visit duration of a site, by 
 source, country, device or day, combined as needed, through Plausible's Stats API v2 -
 plausible.io or a self-hosted Community Edition.
 
+## Install and a first call
+
+```sh
+composer require omnipulse/plausible
+```
+
+No account for this first call: Plausible's answer is recorded
+(`Omnipulse\Testing\RecordedHttpClient` answers in place of the API), so nothing leaves the process.
+A real call needs a Plausible account (or one's own instance) and a Stats API key.
+
+```php
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+use Omnipulse\Model\{Dimension, Metric, ReachQuery};
+use Omnipulse\Plausible\PlausibleFactory;
+use Omnipulse\Testing\RecordedHttpClient;
+
+// Plausible's answer, recorded: nothing sent. HttpClient::create() (symfony/http-client) for a real call.
+$http = RecordedHttpClient::routes([
+    'POST /api/v2/query' => '{"results": [{"metrics": [3120, 3644], "dimensions": ["/"]}, {"metrics": [912, 1005], "dimensions": ["/ateliers"]}]}',
+]);
+$plausible = (new PlausibleFactory($http))->create(['api_key' => 'recorded', 'site' => 'atelier.example.org']);
+
+$report = $plausible->audience(new ReachQuery(new DateTimeImmutable('2026-10-01'), new DateTimeImmutable('2026-10-31'), [Dimension::EntryPage], [Metric::Visitors, Metric::Visits]));
+foreach ($report->rows as $row) {
+    echo json_encode($row->dimensions + $row->metrics, JSON_UNESCAPED_SLASHES), "\n";   // {"entry_page":"/","visitors":3120,"visits":3644} ...
+}
+```
+
+With your credentials, through the family's registry:
+
 ```php
 use Omnipulse\Plausible\PlausibleFactory;
 use Omnipulse\Registry;
